@@ -1,3 +1,14 @@
+### MANUALLY ADDED ###
+
+pocketbase/pb_migrations/
+pocketbase/pb_data/data.db-shm
+pocketbase/pb_data/data.db-wal
+pocketbase/pb_data/logs.db-shm
+pocketbase/pb_data/logs.db-wal
+
+######################
+
+
 # Logs
 logs
 *.log
