@@ -14,7 +14,7 @@ function streamToString(stream) {
 
 
 //BACKEND PROCESS
-const backendProcess = spawn('./dist/backend/pocketbase.exe', ['serve', `--http=localhost:${ports.backend}`]);
+const backendProcess = spawn('./pocketbase/pocketbase.exe', ['serve', `--http=localhost:${ports.backend}`]);
 
 backendProcess.stdout.on('data', (data) => {
     console.log(`Backend ➜  ${data}`);
