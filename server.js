@@ -83,45 +83,30 @@ async function initializer() {
 
         console.log("No Library and Account Detected");
         console.log("Launching Initializer...");
+        
 
-        //INITIALIZER BACKEND PROCESS
-        const initializerBackendProcess = fork('./express-initializer-backend.js');
+        //INITIALIZER PROCESS
+        const initializerProcess = fork('./express-initializer.js');
 
-        initializerBackendProcess.send({
+
+        initializerProcess.send({
             username: 'initializer',
             password: 'XHeUJE3VMwJ2zga'
         });
 
-        initializerBackendProcess.on('message', (message) => {
-            console.log(`Initializer Backend ➜  ${message}`);
+
+        initializerProcess.on('message', (message) => {
+            console.log(`Initializer ➜  ${message}`);
         });
 
-        initializerBackendProcess.on('error', (error) => {
-            console.log(`Initializer Backend error: ${error.message}`);
+        initializerProcess.on('error', (error) => {
+            console.log(`Initializer error: ${error.message}`);
         });
 
-        initializerBackendProcess.on('exit', (code, signal) => {
-            if (code) console.log(`Initializer Backend process exited with code: ${code}`);
-            if (signal) console.log(`Initializer Backend process killed with signal: ${signal}`);
-            console.log(`Initializer Backend process ended`);
-        });
-
-
-        //INITIALIZER FRONTEND PROCESS
-        const initializerFrontendProcess = fork('./express-initializer-frontend.js');
-
-        initializerFrontendProcess.on('message', (message) => {
-            console.log(`Initializer Frontend ➜  ${message}`);
-        });
-
-        initializerFrontendProcess.on('error', (error) => {
-            console.log(`Initializer Frontend error: ${error.message}`);
-        });
-
-        initializerFrontendProcess.on('exit', (code, signal) => {
-            if (code) console.log(`Initializer Frontend process exited with code: ${code}`);
-            if (signal) console.log(`Initializer Frontend process killed with signal: ${signal}`);
-            console.log(`Initializer Frontend process ended`);
+        initializerProcess.on('exit', (code, signal) => {
+            if (code) console.log(`Initializer process exited with code: ${code}`);
+            if (signal) console.log(`Initializer process killed with signal: ${signal}`);
+            console.log(`Initializer process ended`);
         });
     }
 }

@@ -3,25 +3,22 @@ const { ports } = require('./ports');
 const PocketBase = require('pocketbase/cjs');
 const pb = new PocketBase(`http://127.0.0.1:${ports.backend}`);
 
-
-
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const http = require('http');
+const path = require('path');
 
 const app = express();
-const port = ports.initializerBackend;
+const port = ports.initializer;
 
-
-app.use(
-    cors({
-        origin: `http://127.0.0.1:${ports.initializerFrontend}`
-    })
-);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static('./dist/initializer-app'));
+
+
+
+//API STUFF FOR INITIALIZATION
 app.get('/api/get-account-count', (req, res) => {
     (async () => {
         result = await pb.collection('account').getFullList({
@@ -63,8 +60,30 @@ app.post('/api/create-library', (req, res) => {
     });
 })
 
+//DEFAULT
+app.all('*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile(path.join(__dirname, 'dist/initializer-app/index.html'));
+});
+
+
+
 const server = http.createServer(app);
-server.listen(port, () => process.send(`Initializer Backend running on: http://localhost:${port}`));
+
+server.listen(port, () => process.send(`Initializer running on: http://localhost:${port}`));
+
+
+
+
+
+
+//OPEN INITIALIZER APP
+(async () => {
+    //NOTE: Cannot be imported with CommonJS. Default export `open` also says it's not a function.
+    const { openApp } = await import('open');
+    await openApp(`http://127.0.0.1:${port}`);
+})();
+
 
 
 
