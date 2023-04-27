@@ -77,12 +77,12 @@ async function initializer() {
     const libraries = await librariesPromise;
     const accounts = await accountsPromise;
 
+    pb.authStore.clear();
+
     if (libraries.length === 0 && accounts.length === 0) {
 
-        console.log();
         console.log("No Library and Account Detected");
         console.log("Launching Initializer...");
-        console.log();
 
         //INITIALIZER BACKEND PROCESS
         const initializerBackendProcess = fork('./express-initializer-backend.js');
