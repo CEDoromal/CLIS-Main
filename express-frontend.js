@@ -8,7 +8,7 @@ const app = express();
 
 const port = ports.frontend;
 
-app.use(express.static('./dist/frontend'));
+app.use(express.static('./dist/clis-app'));
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname)));
 
