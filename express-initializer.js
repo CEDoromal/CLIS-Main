@@ -84,7 +84,7 @@ server.listen(port, () => process.send(`Initializer running on: http://localhost
 (async () => {
     //NOTE: Cannot be imported with CommonJS. Default export `open` also says it's not a function.
     const { openApp } = await import('open');
-    await openApp(`http://127.0.0.1:${port}`);
+    openApp(`http://127.0.0.1:${port}`);
 })();
 
 
