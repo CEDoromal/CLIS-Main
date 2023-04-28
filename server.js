@@ -79,7 +79,7 @@ async function initializer() {
 
     pb.authStore.clear();
 
-    if (libraries.length === 0 || accounts.length === 0) {
+    if (libraries.length === 0 && accounts.length === 0) {
 
         console.log("No Library and Account Detected");
         console.log("Launching Initializer...");
