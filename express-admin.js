@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 
-const port = ports.app;
+const port = ports.admin;
 
 app.use(express.static('./dist/clis-admin'));
 
