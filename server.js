@@ -58,18 +58,18 @@ appProcess.on('exit', (code, signal) => {
     process.exit();
 });
 
-//CLIS APP PROCESS
+//CLIS ADMIN PROCESS
 const adminProcess = fork('./express-admin.js');
 
-appProcess.on('message', (message) => {
+adminProcess.on('message', (message) => {
     console.log(`CLIS Admin ➜  ${message}`);
 });
 
-appProcess.on('error', (error) => {
+adminProcess.on('error', (error) => {
     console.log(`CLIS Admin error: ${error.message}`);
 });
 
-appProcess.on('exit', (code, signal) => {
+adminProcess.on('exit', (code, signal) => {
     if (code) console.log(`CLIS Admin process exited with code: ${code}`);
     if (signal) console.log(`CLIS Admin process killed with signal: ${signal}`);
     console.log(`CLIS Admin process ended`);
