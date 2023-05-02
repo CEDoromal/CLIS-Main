@@ -40,24 +40,41 @@ backendProcess.on('exit', (code, signal) => {
 });
 
 
-//FRONTEND PROCESS
-const frontendProcess = fork('./express-frontend.js');
+//CLIS APP PROCESS
+const appProcess = fork('./express-app.js');
 
-frontendProcess.on('message', (message) => {
-    console.log(`Frontend ➜  ${message}`);
+appProcess.on('message', (message) => {
+    console.log(`CLIS App ➜  ${message}`);
 });
 
-frontendProcess.on('error', (error) => {
-    console.log(`Frontend error: ${error.message}`);
+appProcess.on('error', (error) => {
+    console.log(`CLIS App error: ${error.message}`);
 });
 
-frontendProcess.on('exit', (code, signal) => {
-    if (code) console.log(`Frontend process exited with code: ${code}`);
-    if (signal) console.log(`Frontend process killed with signal: ${signal}`);
-    console.log(`Frontend process ended`);
+appProcess.on('exit', (code, signal) => {
+    if (code) console.log(`CLIS App process exited with code: ${code}`);
+    if (signal) console.log(`CLIS App process killed with signal: ${signal}`);
+    console.log(`CLIS App process ended`);
     process.exit();
 });
 
+//CLIS APP PROCESS
+const adminProcess = fork('./express-admin.js');
+
+appProcess.on('message', (message) => {
+    console.log(`CLIS Admin ➜  ${message}`);
+});
+
+appProcess.on('error', (error) => {
+    console.log(`CLIS Admin error: ${error.message}`);
+});
+
+appProcess.on('exit', (code, signal) => {
+    if (code) console.log(`CLIS Admin process exited with code: ${code}`);
+    if (signal) console.log(`CLIS Admin process killed with signal: ${signal}`);
+    console.log(`CLIS Admin process ended`);
+    process.exit();
+});
 
 //INITIALIZER
 async function initializer() {
