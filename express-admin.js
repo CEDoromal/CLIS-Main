@@ -10,7 +10,9 @@ const port = ports.admin;
 
 app.use(express.static('./dist/clis-admin'));
 
-app.get('/*', (req, res) => res.sendFile(path.join(__dirname)));
+app.all('*', function(req, res, next) {
+    res.sendFile(path.join(__dirname, 'dist/clis-admin/index.html'));
+});
 
 const server = http.createServer(app);
 
